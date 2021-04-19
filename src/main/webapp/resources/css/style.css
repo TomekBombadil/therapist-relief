@@ -1,0 +1,36 @@
+body {
+    background-color: gainsboro;
+}
+
+.patient-add-form-div{
+    width: 90%;
+    height: 90%;
+    align-content: center;
+    border: red;
+}
+
+table.patient-add-table {
+    border: 2px;
+    width: 50%;
+    height: 90%;
+}
+
+.patient-desc {
+    width: 300px;
+    height: 150px;
+}
+
+tr {
+    height: 30px;
+}
+
+.row {
+    display: flex;
+    margin-left:-5px;
+    margin-right:-5px;
+}
+
+.column {
+    flex: 50%;
+    padding: 5px;
+}
