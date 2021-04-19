@@ -26,8 +26,10 @@ public class Patient {
     @PESEL(message = "{patient.pesel.invalid}")
     @Column(length = 11)
     private String pesel;
-    @Column(name="rodo_file")
+    @Column(name="rodo_file", columnDefinition="longblob")
     private byte[] rodoFile;
+    @Column(length = 65535)
+    private String description;
     private LocalDateTime created;
     private LocalDateTime updated;
 

@@ -14,16 +14,20 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min=3, message = "{user.name.size.min}")
-    @Column(length = 50)
-    private String name;
+    @Size(min=2, message = "{user.first_name.size.min}")
+    @Column(name="first_name", length = 50)
+    private String firstName;
     @NotNull
-    @Column(length = 50)
-    private String password;
+    @Size(min=2, message = "{user.last_name.size.min}")
+    @Column(name="last_name", length = 50)
+    private String lastName;
     @NotNull
     @Email(message = "{user.email.invalid}")
     @Column(length = 50)
     private String email;
+    @NotNull
+    @Column(length = 50)
+    private String password;
     @NotNull
     @Column(length = 20)
     private String role;
@@ -38,12 +42,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -99,8 +111,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 '}';
