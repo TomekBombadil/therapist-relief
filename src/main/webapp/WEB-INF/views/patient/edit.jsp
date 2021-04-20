@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="patient-add-form-div">
-    <form:form method="post" modelAttribute="newpatient" enctype="multipart/form-data">
+    <form:form method="post" modelAttribute="patienttoedit" enctype="multipart/form-data">
         <div class="row">
             <div class="column">
                 <table class="patient-add-table">
@@ -42,6 +42,8 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Save"/></td>
+                        <form:hidden path="id"/>
+                        <form:hidden path="created"/>
                     </tr>
                 </table>
             </div>

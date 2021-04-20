@@ -2,11 +2,15 @@ body {
     background-color: gainsboro;
 }
 
+.validation-error-text{
+    color: red;
+    font-size: 10px;
+}
+
 .patient-add-form-div{
     width: 90%;
     height: 90%;
     align-content: center;
-    border: red;
 }
 
 table.patient-add-table {

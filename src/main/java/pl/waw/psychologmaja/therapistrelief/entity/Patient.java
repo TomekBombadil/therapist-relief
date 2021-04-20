@@ -34,9 +34,11 @@ public class Patient {
     @PESEL(message = "{patient.pesel.invalid}")
     @Column(length = 11)
     private String pesel;
-    @Column(name="rodo_file")
+    @Column(name="rodo_file", columnDefinition = "LONGBLOB")
     private byte[] rodoFile;
-    @Column(length = 65535)
+    @Column(name="rodo_file_name")
+    private String rodoFileName;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private LocalDateTime created;
     private LocalDateTime updated;
@@ -95,6 +97,14 @@ public class Patient {
 
     public void setRodoFile(byte[] rodoFile) {
         this.rodoFile = rodoFile;
+    }
+
+    public String getRodoFileName() {
+        return rodoFileName;
+    }
+
+    public void setRodoFileName(String rodoFileName) {
+        this.rodoFileName = rodoFileName;
     }
 
     public String getDescription() {
