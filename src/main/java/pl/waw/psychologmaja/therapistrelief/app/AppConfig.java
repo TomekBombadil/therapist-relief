@@ -37,6 +37,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
         stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain",
+                Charset.forName("UTF-8")),new MediaType("text", "html",
                 Charset.forName("UTF-8"))));
         converters.add(stringConverter);
     }

@@ -1,0 +1,4 @@
+INSERT INTO `patients` (`created`,`description`,`email`,`first_name`,`last_name`,`pesel`,`phone`,`updated`) VALUES ('2021-04-21 20:01:41.961967','gshfgsdjgfhsdg\r\nsdgjidhfghdfghdfhgdfg\r\nsdghfjshdghfdfsghjdfgjfdhgj','nowaks@wp.pl','Stefan','Nowak','67011105111','456789234',NULL);
+INSERT INTO `patients` (`created`,`description`,`email`,`first_name`,`last_name`,`pesel`,`phone`,`updated`) VALUES ('2021-04-21 20:03:51.481579','hdsfgudfhgjhdfg\r\naessdjkfdjhsgjdfjgd\r\ngjbwejgjwhgjkhdskjfhdkxgvd\r\nsdjhfbdshgbjdsbjdbzfjsbdfjsdjfb','akowalska@gmail.com','Anna','Kowalska','00271164810','4575676888',NULL);
+INSERT INTO `patients` (`created`,`description`,`email`,`first_name`,`last_name`,`pesel`,`phone`,`updated`) VALUES ('2021-04-21 20:05:02.978524','sdghdjkhfgjhdfjghdf\r\nsfjhsdjfhdsjhgjdhfgjhdfg\r\nsadhsgdfhgdshgfdsjghjdsgjjdg','cymbal@poczta.pl','Stanisławążźółńśćę','Cymbał','00311138515','123456782',NULL);
+

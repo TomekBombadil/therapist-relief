@@ -15,9 +15,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/patient", produces = "text/html; charset=utf-8")
+@RequestMapping(value = "/patient", produces = "text/html;charset=UTF-8")
 public class PatientController {
 
     private final Logger logger = LoggerFactory.getLogger(PatientController.class);
@@ -27,6 +28,13 @@ public class PatientController {
     public PatientController(PatientService patientService, Validator validator) {
         this.patientService = patientService;
         this.validator = validator;
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String showAll(Model model) {
+        List<Patient> patients = patientService.returnAll();
+        model.addAttribute("allpatients", patients);
+        return "patient/all";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -62,7 +70,7 @@ public class PatientController {
             logger.error(result.toString());
             return "patient/edit";
         }
-        if (file != null && file.length > 0 && file[0].getSize()>0) {
+        if (file != null && file.length > 0 && file[0].getSize() > 0) {
             patient.setRodoFileName(file[0].getOriginalFilename());
             patient.setRodoFile(file[0].getBytes());
         } else {
@@ -71,6 +79,19 @@ public class PatientController {
             patient.setRodoFile(patientFromDb.getRodoFile());
         }
         patientService.save(patient);
+        return "redirect:/patient/all";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String showDeleteConfirmationRequest(@RequestParam long id, Model model) {
+        Patient patient = patientService.read(id).orElseThrow(EntityNotFoundException::new);
+        model.addAttribute("patienttodelete", patient);
+        return "patient/delete";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String processDelete(Patient patient) {
+        patientService.delete(patient);
         return "redirect:/patient/all";
     }
 
