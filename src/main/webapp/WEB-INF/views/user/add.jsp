@@ -29,7 +29,7 @@
                     </tr>
                     <tr>
                         <td><form:label path="password">Password:</form:label></td>
-                        <td><form:input path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
+                        <td><form:password path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="role">Role:</form:label></td>
