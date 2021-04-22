@@ -28,11 +28,11 @@
                         <td><form:input path="email"/><form:errors path="email" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="password">Phone:</form:label></td>
+                        <td><form:label path="password">Password:</form:label></td>
                         <td><form:input path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="role">Pesel:</form:label></td>
+                        <td><form:label path="role">Role:</form:label></td>
                         <td><form:input path="role"/><form:errors path="role" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
