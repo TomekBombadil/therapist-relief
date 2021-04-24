@@ -35,6 +35,7 @@ public class Patient {
     @Column(length = 11)
     private String pesel;
     @Column(name="rodo_file", columnDefinition = "LONGBLOB")
+    @Lob
     private byte[] rodoFile;
     @Column(name="rodo_file_name")
     private String rodoFileName;
