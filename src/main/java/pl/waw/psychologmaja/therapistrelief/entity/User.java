@@ -5,6 +5,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -31,6 +33,8 @@ public class User {
     @NotNull
     @Column(length = 20)
     private String role;
+    @OneToMany(mappedBy = "user")
+    private List<Session> sessions = new ArrayList<>();
     private LocalDateTime created;
     private LocalDateTime updated;
 
@@ -80,6 +84,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 
     public LocalDateTime getCreated() {

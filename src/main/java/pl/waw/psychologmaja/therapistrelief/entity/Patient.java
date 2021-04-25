@@ -7,6 +7,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="patients")
@@ -41,6 +43,11 @@ public class Patient {
     private String rodoFileName;
     @Column(columnDefinition = "TEXT")
     private String description;
+    @ManyToMany
+    @JoinTable(name = "patients_sessions"
+            , joinColumns = @JoinColumn(name = "patients_id")
+            , inverseJoinColumns = @JoinColumn(name="sessions_id"))
+    private List<Session> sessions = new ArrayList<>();
     private LocalDateTime created;
     private LocalDateTime updated;
 
