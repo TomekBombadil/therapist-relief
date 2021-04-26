@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.waw.psychologmaja.therapistrelief.entity.Authority;
 import pl.waw.psychologmaja.therapistrelief.entity.User;
+import pl.waw.psychologmaja.therapistrelief.service.AuthorityService;
 import pl.waw.psychologmaja.therapistrelief.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
@@ -23,10 +25,12 @@ public class UserController {
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
+    private AuthorityService authorityService;
     private Validator validator;
 
-    public UserController(UserService userService, Validator validator) {
+    public UserController(UserService userService, AuthorityService authorityService, Validator validator) {
         this.userService = userService;
+        this.authorityService = authorityService;
         this.validator = validator;
     }
 
@@ -83,5 +87,9 @@ public class UserController {
         return "redirect:/user/all";
     }
 
+    @ModelAttribute("auths")
+    public List<Authority> availableAuths() {
+        return authorityService.returnAll();
+    }
 
 }

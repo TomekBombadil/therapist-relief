@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.waw.psychologmaja.therapistrelief.converter.AuthorityConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
@@ -34,10 +35,16 @@ import java.util.Locale;
 public class AppConfig implements WebMvcConfigurer {
 
     @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/auth/login").setViewName("auth/login");
+        registry.addViewController("/auth/403page").setViewName("auth/403page");
+    }
+
+    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
         stringConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain",
-                Charset.forName("UTF-8")),new MediaType("text", "html",
+                Charset.forName("UTF-8")), new MediaType("text", "html",
                 Charset.forName("UTF-8"))));
         converters.add(stringConverter);
     }
@@ -81,7 +88,12 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(authorityConverter());
+    }
 
+    @Bean
+    public AuthorityConverter authorityConverter() {
+        return new AuthorityConverter();
     }
 
     @Bean(name = "localeResolver")

@@ -16,12 +16,8 @@
                         <td><h2>Edit user</h2></td>
                     </tr>
                     <tr>
-                        <td><form:label path="firstName">First name:</form:label></td>
-                        <td><form:input path="firstName"/><form:errors path="firstName" cssClass="validation-error-text"/></td>
-                    </tr>
-                    <tr>
-                        <td><form:label path="lastName">Last name:</form:label></td>
-                        <td><form:input path="lastName"/><form:errors path="lastName" cssClass="validation-error-text"/></td>
+                        <td><form:label path="username">Last name:</form:label></td>
+                        <td><form:input path="username"/><form:errors path="username" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="email">Email:</form:label></td>
@@ -32,8 +28,16 @@
                         <td><form:password path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="role">Role:</form:label></td>
-                        <td><form:input path="role"/><form:errors path="role" cssClass="validation-error-text"/></td>
+                        <td><form:label path="passwordConfirmed">Confirm password:</form:label></td>
+                        <td><form:password path="passwordConfirmed"/><form:errors path="passwordConfirmed" cssClass="validation-error-text"/></td>
+                    </tr>
+                    <tr>
+                        <td><form:label path="enabled">Enabled:</form:label></td>
+                        <td><form:checkbox path="enabled"/><form:errors path="enabled" cssClass="validation-error-text"/></td>
+                    </tr>
+                    <tr>
+                        <td><form:label path="authorities">Roles:</form:label></td>
+                        <td><form:select multiple="true" path="authorities" items="${auths}" itemLabel="authority" itemValue="id"/><form:errors path="authorities" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Save"/></td>

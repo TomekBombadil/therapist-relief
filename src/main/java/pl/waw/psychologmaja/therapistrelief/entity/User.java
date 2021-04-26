@@ -1,5 +1,8 @@
 package pl.waw.psychologmaja.therapistrelief.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -9,30 +12,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name = "users")
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Size(min=2, message = "{user.first_name.size.min}")
-    @Column(name="first_name", length = 50)
-    private String firstName;
-    @NotNull
-    @Size(min=2, message = "{user.last_name.size.min}")
-    @Column(name="last_name", length = 50)
-    private String lastName;
+    @Size(min = 2, message = "{user.username.size.min}")
+    @Column(length = 50, unique = true)
+    private String username;
     @NotNull
     @Email(message = "{user.email.invalid}")
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String email;
     @NotNull
-    @Column(length = 50)
+    @Size(min=4, message = "{user.password.size.min}")
+    @Column(length = 100)
     private String password;
-    @NotNull
-    @Column(length = 20)
-    private String role;
+    @Transient
+    private String passwordConfirmed;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authorities"
+            , joinColumns = @JoinColumn(name = "users_id")
+            , inverseJoinColumns = @JoinColumn(name = "authorities_id"))
+    private List<Authority> authorities = new ArrayList<>();
+    private boolean enabled;
+    @Transient
+    private boolean accountNonExpired = true;
+    @Transient
+    private boolean accountNonLocked = true;
+    @Transient
+    private boolean credentialsNonExpired = true;
     @OneToMany(mappedBy = "user")
     private List<Session> sessions = new ArrayList<>();
     private LocalDateTime created;
@@ -46,20 +57,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -70,6 +73,14 @@ public class User {
         this.password = password;
     }
 
+    public String getPasswordConfirmed() {
+        return passwordConfirmed;
+    }
+
+    public void setPasswordConfirmed(String passwordConfirmed) {
+        this.passwordConfirmed = passwordConfirmed;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -78,12 +89,12 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public List<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public List<Session> getSessions() {
@@ -110,23 +121,61 @@ public class User {
         this.updated = updated;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.created = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         this.updated = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
+                ", authorities=" + authorities +
+                ", created=" + created +
+                ", updated=" + updated +
                 '}';
     }
 }

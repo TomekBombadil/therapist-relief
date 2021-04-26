@@ -87,5 +87,22 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+<!--            <version>${spring.version}</version>-->
+            <version>5.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <!--            <version>${spring.version}</version>-->
+            <version>5.2.2.RELEASE</version>
+        </dependency>
     </dependencies>
 </project>

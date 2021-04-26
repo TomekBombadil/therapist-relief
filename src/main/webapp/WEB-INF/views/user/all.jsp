@@ -13,19 +13,17 @@
     <div class="row">
         <table class="patient-add-table">
             <tr>
-                <td>First name</td>
-                <td>Last name</td>
+                <td>Username</td>
                 <td>Email</td>
-                <td>Role</td>
+                <td>Enabled</td>
                 <td></td>
                 <td></td>
             </tr>
             <c:forEach items="${allusers}" var="user">
                 <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
+                    <td>${user.username}</td>
                     <td>${user.email}</td>
-                    <td>${user.role}</td>
+                    <td>${user.enabled}</td>
                     <td><a href="<c:url value="/user/edit?id=${user.id}"/>">Edit</a></td>
                     <td><a href="<c:url value="/user/delete?id=${user.id}"/>">Delete</a></td>
                 </tr>
