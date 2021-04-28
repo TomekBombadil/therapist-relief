@@ -3,40 +3,57 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Add user</title>
+    <title>Add session</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
 <div class="patient-add-form-div">
-    <form:form method="post" modelAttribute="newuser">
+    <form:form method="post" modelAttribute="newsession">
         <div class="row">
             <div class="column">
                 <table class="patient-add-table">
                     <tr>
-                        <td><h2>New user</h2></td>
+                        <td><h2>New session</h2></td>
                     </tr>
                     <tr>
-                        <td><form:label path="firstName">First name:</form:label></td>
-                        <td><form:input path="firstName"/><form:errors path="firstName" cssClass="validation-error-text"/></td>
+                        <td><form:label path="date">Date:</form:label></td>
+                        <td><form:input type="date" path="date" /><form:errors path="date" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="lastName">Last name:</form:label></td>
-                        <td><form:input path="lastName"/><form:errors path="lastName" cssClass="validation-error-text"/></td>
+                        <td><form:label path="time">Time:</form:label></td>
+                        <td><form:select items="${availablehours}" path="time" /><form:errors path="time" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="email">Email:</form:label></td>
-                        <td><form:input path="email"/><form:errors path="email" cssClass="validation-error-text"/></td>
+                        <td><form:label path="patients">Patients:</form:label></td>
+                        <td><form:select path="patients" items="${availablepatients}" multiple="true" itemValue="id" itemLabel="fullName"/><form:errors path="patients"
+                                                                                                                                                        cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="password">Password:</form:label></td>
-                        <td><form:password path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
+                        <td><form:label path="user.id">User:</form:label></td>
+                        <td><form:select path="user.id" items="${availableusers}" itemLabel="username" itemValue="id"/><form:errors path="user.id"
+                                                                                                                                    cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
-                        <td><form:label path="role">Role:</form:label></td>
-                        <td><form:input path="role"/><form:errors path="role" cssClass="validation-error-text"/></td>
+                        <td><form:label path="paymentDue">Expected payment:</form:label></td>
+                        <td><form:input type="number" min="0" step="0.01" path="paymentDue"/><form:errors path="paymentDue"
+                                                                        cssClass="validation-error-text"/></td>
+                    </tr>
+                    <tr>
+                        <td><form:label path="paymentActual">Actual payment:</form:label></td>
+                        <td><form:input type="number" min="0" step="0.01" path="paymentActual"/><form:errors path="paymentActual"
+                                                                           cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Save"/></td>
+                    </tr>
+                </table>
+            </div>
+                <%-- END column --%>
+            <div class="column">
+                <table class="patient-add-table">
+                    <tr>
+                        <td><form:label path="notes">Notes:</form:label></td>
+                        <td><form:textarea path="notes" cssClass="patient-desc"/></td>
                     </tr>
                 </table>
             </div>

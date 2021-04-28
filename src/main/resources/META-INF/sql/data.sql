@@ -11,3 +11,8 @@ INSERT INTO authorities(authority) values('USER');
 INSERT INTO users_authorities(users_id, authorities_id) values(1, 2);
 INSERT INTO users_authorities(users_id, authorities_id) values(2, 1);
 INSERT INTO users_authorities(users_id, authorities_id) values(2, 2);
+
+INSERT INTO `therapist_relief`.`sessions` (`created`,`date`,`notes`,`payment_actual`,`payment_due`,`time`,`users_id`)VALUES('2021-04-21 20:01:41.961967','2021-05-04','dsfdf drgdfgfdgdcg',150.00,150.00,'15:00',1);
+
+INSERT INTO patients_sessions(patients_id, sessions_id) values(1,1);
+INSERT INTO patients_sessions(patients_id, sessions_id) values(3,1);

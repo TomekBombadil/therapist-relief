@@ -10,6 +10,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.security.access.method.P;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.waw.psychologmaja.therapistrelief.converter.AuthorityConverter;
+import pl.waw.psychologmaja.therapistrelief.converter.LocalDateConverter;
+import pl.waw.psychologmaja.therapistrelief.converter.LocalTimeConverter;
+import pl.waw.psychologmaja.therapistrelief.converter.PatientConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
@@ -89,11 +93,29 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(authorityConverter());
+        registry.addConverter(patientConverter());
+        registry.addConverter(localDateConverter());
+        registry.addConverter(localTimeConverter());
     }
 
     @Bean
     public AuthorityConverter authorityConverter() {
         return new AuthorityConverter();
+    }
+
+    @Bean
+    public PatientConverter patientConverter(){
+        return new PatientConverter();
+    }
+
+    @Bean
+    public LocalDateConverter localDateConverter(){
+        return new LocalDateConverter();
+    }
+
+    @Bean
+    public LocalTimeConverter localTimeConverter(){
+        return new LocalTimeConverter();
     }
 
     @Bean(name = "localeResolver")

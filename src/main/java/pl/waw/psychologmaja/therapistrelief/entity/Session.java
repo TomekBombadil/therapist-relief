@@ -2,7 +2,9 @@ package pl.waw.psychologmaja.therapistrelief.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,9 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private LocalDateTime datetime;
+    private LocalDate date;
+    @NotNull
+    private LocalTime time;
     @Column(columnDefinition = "TEXT")
     private String notes;
     @NotNull
@@ -22,7 +26,10 @@ public class Session {
     private double paymentDue;
     @Column(name = "payment_actual")
     private double paymentActual;
-    @ManyToMany(mappedBy = "sessions")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "patients_sessions"
+            , joinColumns = @JoinColumn(name = "sessions_id")
+            , inverseJoinColumns = @JoinColumn(name="patients_id"))
     private List<Patient> patients = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name="users_id")
@@ -38,12 +45,20 @@ public class Session {
         this.id = id;
     }
 
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getNotes() {

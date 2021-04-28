@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String passwordConfirmed;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "users_authorities"
             , joinColumns = @JoinColumn(name = "users_id")
             , inverseJoinColumns = @JoinColumn(name = "authorities_id"))

@@ -43,10 +43,7 @@ public class Patient {
     private String rodoFileName;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @ManyToMany
-    @JoinTable(name = "patients_sessions"
-            , joinColumns = @JoinColumn(name = "patients_id")
-            , inverseJoinColumns = @JoinColumn(name="sessions_id"))
+    @ManyToMany(mappedBy = "patients")
     private List<Session> sessions = new ArrayList<>();
     private LocalDateTime created;
     private LocalDateTime updated;
@@ -73,6 +70,10 @@ public class Patient {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
     }
 
     public String getEmail() {
@@ -121,6 +122,14 @@ public class Patient {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
     }
 
     public LocalDateTime getCreated() {
