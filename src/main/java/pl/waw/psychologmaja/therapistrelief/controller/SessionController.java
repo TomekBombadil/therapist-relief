@@ -1,27 +1,26 @@
 package pl.waw.psychologmaja.therapistrelief.controller;
 
-import org.hibernate.Hibernate;
+import com.itextpdf.text.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.waw.psychologmaja.therapistrelief.entity.Patient;
 import pl.waw.psychologmaja.therapistrelief.entity.Session;
 import pl.waw.psychologmaja.therapistrelief.entity.User;
+import pl.waw.psychologmaja.therapistrelief.service.InvoiceService;
 import pl.waw.psychologmaja.therapistrelief.service.PatientService;
 import pl.waw.psychologmaja.therapistrelief.service.SessionService;
 import pl.waw.psychologmaja.therapistrelief.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.Validator;
-import java.security.Principal;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -36,13 +35,15 @@ public class SessionController {
     private Validator validator;
     private UserService userService;
     private PatientService patientService;
+    private InvoiceService invoiceService;
 
     public SessionController(SessionService sessionService, Validator validator, UserService userService,
-                             PatientService patientService) {
+                             PatientService patientService, InvoiceService invoiceService) {
         this.sessionService = sessionService;
         this.validator = validator;
         this.userService = userService;
         this.patientService = patientService;
+        this.invoiceService = invoiceService;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -100,20 +101,26 @@ public class SessionController {
         return "redirect:/session/all";
     }
 
+    @RequestMapping(value = "/invoice", produces = "application/pdf;charset=UTF-8")
+    @ResponseBody
+    public void generateInvoice(Session session, BindingResult result, HttpServletResponse response) throws DocumentException, IOException {
+        invoiceService.getInvoice(sessionService.read(session.getId()).orElseThrow(EntityNotFoundException::new), response);
+    }
+
     @ModelAttribute("availableusers")
-    public Set<User> getAllUsers(){
+    public Set<User> getAllUsers() {
         return userService.returnAllWithAuthorities().stream().collect(Collectors.toSet());
     }
 
     @ModelAttribute("availablepatients")
-    public List<Patient> getAllPatients(){
+    public List<Patient> getAllPatients() {
         return patientService.returnAll();
     }
 
     @ModelAttribute("availablehours")
-    public List<String> getAvailableHours(){
+    public List<String> getAvailableHours() {
         return Arrays.asList("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"
-                ,"16:00", "17:00", "18:00", "19:00", "20:00");
+                , "16:00", "17:00", "18:00", "19:00", "20:00");
     }
 
 }
