@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sessions")
@@ -87,6 +88,11 @@ public class Session {
 
     public List<Patient> getPatients() {
         return patients;
+    }
+
+    public String getPatientsNames() {
+        return String.join(", ", patients.stream().
+                map(Patient::getFullName).collect(Collectors.toSet()));
     }
 
     public void setPatients(List<Patient> patients) {

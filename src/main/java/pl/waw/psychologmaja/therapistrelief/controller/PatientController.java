@@ -44,7 +44,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute("newpatient") @Valid Patient patient, BindingResult result, @RequestParam("rodoFileToUpload") CommonsMultipartFile[] file) {
+    public String processAddForm(@ModelAttribute("newpatient") @Valid Patient patient, BindingResult result, @RequestParam(value = "rodoFileToUpload", required = false) CommonsMultipartFile[] file) {
         if (result.hasErrors()) {
             logger.error(result.toString());
             return "patient/add";
@@ -65,7 +65,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String processEditForm(@ModelAttribute("patienttoedit") @Valid Patient patient, BindingResult result, @RequestParam("rodoFileToUpload") CommonsMultipartFile[] file) {
+    public String processEditForm(@ModelAttribute("patienttoedit") @Valid Patient patient, BindingResult result, @RequestParam(value = "rodoFileToUpload", required = false) CommonsMultipartFile[] file) {
         if (result.hasErrors()) {
             logger.error(result.toString());
             return "patient/edit";

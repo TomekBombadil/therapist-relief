@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="patient-add-form-div">
-    <form:form method="post" modelAttribute="patienttoedit" enctype="multipart/form-data">
+    <form:form method="post" action="/patient/edit?${_csrf.parameterName}=${_csrf.token}" modelAttribute="patienttoedit" enctype="multipart/form-data">
         <div class="row">
             <div class="column">
                 <table class="patient-add-table">

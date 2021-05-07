@@ -18,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/user", produces = "text/html;charset=UTF-8")
@@ -36,7 +37,7 @@ public class UserController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String showAll(Model model) {
-        List<User> users = userService.returnAll();
+        Set<User> users = userService.returnAllWithAuthorities();
         model.addAttribute("allusers", users);
         return "user/all";
     }
@@ -59,7 +60,7 @@ public class UserController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String showEditForm(Model model, @RequestParam long id) {
-        User user = userService.read(id).orElseThrow(EntityNotFoundException::new);
+        User user = userService.readWithAuthorities(id).orElseThrow(EntityNotFoundException::new);
         model.addAttribute("usertoedit", user);
         return "user/edit";
     }
@@ -76,7 +77,7 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String showDeleteConfirmationRequest(@RequestParam long id, Model model) {
-        User user = userService.read(id).orElseThrow(EntityNotFoundException::new);
+        User user = userService.readWithAuthorities(id).orElseThrow(EntityNotFoundException::new);
         model.addAttribute("usertodelete", user);
         return "user/delete";
     }

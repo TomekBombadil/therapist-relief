@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>All patients</title>
+    <title>Delete session</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
@@ -11,16 +11,16 @@
     <div class="row">
         <table class="patient-add-table">
             <th>
-            <td><h2>Delete user?</h2></td>
+            <td><h2>Delete session?</h2></td>
             </th>
                 <tr>
                     <td>
-                        <form:form method="POST" modelAttribute="usertodelete">
+                        <form:form method="POST" modelAttribute="sessiontodelete">
                             <form:hidden path="id"/>
                             <input type="submit" value="Yes"/>
                         </form:form>
                     </td>
-                    <td><form:form method="GET" action="/user/all">
+                    <td><form:form method="GET" action="/session/all">
                         <input type="submit" value="No"/>
                     </form:form></td>
                 </tr>

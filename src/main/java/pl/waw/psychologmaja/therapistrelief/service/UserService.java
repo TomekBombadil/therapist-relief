@@ -5,11 +5,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.waw.psychologmaja.therapistrelief.entity.User;
 import pl.waw.psychologmaja.therapistrelief.exception.UserAlreadyExistsException;
+import pl.waw.psychologmaja.therapistrelief.repository.AuthorityRepository;
+import pl.waw.psychologmaja.therapistrelief.repository.SessionRepository;
 import pl.waw.psychologmaja.therapistrelief.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -17,17 +20,22 @@ public class UserService {
 
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
+    private AuthorityRepository authorityRepository;
+    private SessionRepository sessionRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository,
+                       SessionRepository sessionRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityRepository = authorityRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     public List<User> returnAll() {
         return userRepository.findAll();
     }
 
-    public List<User> returnAllWithAuthorities() {
+    public Set<User> returnAllWithAuthorities() {
         return userRepository.findAllWithAuthorities();
     }
 
@@ -35,11 +43,15 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public void save(User user){
-        if(emailExists(user.getEmail())){
+    public Optional<User> readWithAuthorities(long id) {
+        return userRepository.findByIdWithAuthorities(id);
+    }
+
+    public void save(User user) {
+        if (emailExists(user.getEmail())) {
             throw new UserAlreadyExistsException("There is an account with that email address " + user.getEmail());
         }
-        if(usernameExists(user.getUsername())){
+        if (usernameExists(user.getUsername())) {
             throw new UserAlreadyExistsException("There is an account with that username " + user.getUsername());
         }
         if (user.getId() == null || !user.getPassword().equals(read(user.getId()).get().getPassword())) {
@@ -51,14 +63,16 @@ public class UserService {
     }
 
     public void delete(User user) {
+        authorityRepository.deleteAuthoritiesByUserId(user.getId());
+        sessionRepository.setSessionUserToNull(user.getId());
         userRepository.delete(user);
     }
 
-    public boolean emailExists(String email){
+    public boolean emailExists(String email) {
         return userRepository.findByEmail(email).orElse(null) != null;
     }
 
-    public boolean usernameExists(String username){
+    public boolean usernameExists(String username) {
         return userRepository.findByUsername(username).orElse(null) != null;
     }
 }
