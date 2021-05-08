@@ -3,12 +3,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>All sessions</title>
+    <title>Your upcoming sessions</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
 <a href="<c:url value="/session/add"/>">Add</a>
-<h2>Session:</h2>
+<a href="<c:url value="/auth/logout"/>">Logout</a>
+<h2>Your upcoming sessions:</h2>
 <div class="patient-add-form-div">
     <div class="row">
         <table class="patient-add-table">
@@ -21,7 +22,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <c:forEach items="${allsessions}" var="session">
+            <c:forEach items="${upcoming}" var="session">
                 <tr>
                     <td>${session.date}</td>
                     <td>${session.time}</td>

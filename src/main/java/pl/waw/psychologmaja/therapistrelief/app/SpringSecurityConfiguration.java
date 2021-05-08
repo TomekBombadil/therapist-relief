@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.waw.psychologmaja.therapistrelief.repository.UserRepository;
 import pl.waw.psychologmaja.therapistrelief.service.CustomUserDetailsService;
 
@@ -58,11 +59,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/session/*").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
-                .logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login")
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))//to musiałem dać zamiast logoutUrl, żeby działał request GET + CSRF
+                .clearAuthentication(true).logoutSuccessUrl("/auth/login").invalidateHttpSession(true)
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").usernameParameter("email").passwordParameter("password")//żeby logować się emailem a nie username
-                .defaultSuccessUrl("/session/all", true)
+                .defaultSuccessUrl("/session/upcoming", true)
                 .permitAll();       // strona logowanie musi być dostęna dla wszystkich
     }
 }

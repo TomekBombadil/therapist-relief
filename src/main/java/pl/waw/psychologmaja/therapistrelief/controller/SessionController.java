@@ -46,6 +46,13 @@ public class SessionController {
         this.invoiceService = invoiceService;
     }
 
+    @RequestMapping(value="/upcoming", method=RequestMethod.GET)
+    public String showHomePage(Model model){
+        List<Session> upcoming = sessionService.returnUserUpcoming();
+        model.addAttribute("upcoming", upcoming);
+        return "session/upcoming";
+    }
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String showAll(Model model) {
         List<Session> sessions = sessionService.returnAll();

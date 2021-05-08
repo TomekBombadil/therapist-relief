@@ -1,5 +1,6 @@
 package pl.waw.psychologmaja.therapistrelief.service;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.waw.psychologmaja.therapistrelief.entity.Patient;
 import pl.waw.psychologmaja.therapistrelief.entity.Session;
@@ -7,6 +8,7 @@ import pl.waw.psychologmaja.therapistrelief.entity.User;
 import pl.waw.psychologmaja.therapistrelief.repository.SessionRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +44,12 @@ public class SessionService {
 
     public void delete(Session session) {
         sessionRepository.delete(session);
+    }
+
+    public List<Session> returnUserUpcoming(){
+        List<Session> sessions = sessionRepository
+                .findAllByUserAndDateTime(((User) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal()).getId(), LocalDateTime.now());
+        return sessions;
     }
 }

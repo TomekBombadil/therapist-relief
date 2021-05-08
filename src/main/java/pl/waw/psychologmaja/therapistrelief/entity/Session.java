@@ -62,6 +62,10 @@ public class Session {
         this.time = time;
     }
 
+    public LocalDateTime getDateTime(){
+        return LocalDateTime.of(date, time);
+    }
+
     public String getNotes() {
         return notes;
     }
