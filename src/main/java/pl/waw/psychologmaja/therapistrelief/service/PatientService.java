@@ -8,6 +8,8 @@ import pl.waw.psychologmaja.therapistrelief.repository.SessionRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,6 +25,17 @@ public class PatientService {
 
     public List<Patient> returnAll() {
         return patientRepository.findAll();
+    }
+
+    public Set<Patient> returnAllWithPayments() {
+        List<Patient> patients = patientRepository.findAllWithSessions();
+        patients.forEach(patient -> {
+            patient.setPayment(patient.getSessions()
+                    .stream().map(session -> session.getPaymentDiff())
+                    .reduce(0.0, (subtotal, element) -> subtotal + element));
+        });
+        Set<Patient> patientsSet = patients.stream().collect(Collectors.toSet());
+        return patientsSet;
     }
 
     public Optional<Patient> read(long id) {

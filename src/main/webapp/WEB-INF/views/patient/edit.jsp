@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
+<%@include file="/WEB-INF/views/header.jsp" %>
 <div class="patient-add-form-div">
     <form:form method="post" action="/patient/edit?${_csrf.parameterName}=${_csrf.token}" modelAttribute="patienttoedit" enctype="multipart/form-data">
         <div class="row">

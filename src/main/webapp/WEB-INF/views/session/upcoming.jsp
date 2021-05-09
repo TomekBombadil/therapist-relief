@@ -8,7 +8,8 @@
 </head>
 <body>
 <a href="<c:url value="/session/add"/>">Add</a>
-<a href="<c:url value="/auth/logout"/>">Logout</a>
+
+<%@include file="/WEB-INF/views/header.jsp" %>
 <h2>Your upcoming sessions:</h2>
 <div class="patient-add-form-div">
     <div class="row">

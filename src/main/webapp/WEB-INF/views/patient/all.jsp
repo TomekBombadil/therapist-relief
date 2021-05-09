@@ -8,6 +8,8 @@
 </head>
 <body>
 <a href="<c:url value="/patient/add"/>">Add</a>
+
+<%@include file="/WEB-INF/views/header.jsp" %>
 <h2>Patients:</h2>
 <div class="patient-add-form-div">
     <div class="row">
@@ -18,6 +20,7 @@
                 <td>Email</td>
                 <td>Phone</td>
                 <td>Pesel</td>
+                <td>Payment</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -28,6 +31,7 @@
                     <td>${patient.email}</td>
                     <td>${patient.phone}</td>
                     <td>${patient.pesel}</td>
+                    <td>${patient.payment}</td>
                     <td><a href="<c:url value="/patient/edit?id=${patient.id}"/>">Edit</a></td>
                     <td><a href="<c:url value="/patient/delete?id=${patient.id}"/>">Delete</a></td>
                 </tr>

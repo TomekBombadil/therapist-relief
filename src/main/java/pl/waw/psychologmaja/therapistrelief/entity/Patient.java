@@ -45,6 +45,8 @@ public class Patient {
     private String description;
     @ManyToMany(mappedBy = "patients")
     private List<Session> sessions = new ArrayList<>();
+    @Transient
+    private double payment;
     private LocalDateTime created;
     private LocalDateTime updated;
 
@@ -130,6 +132,14 @@ public class Patient {
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    public double getPayment() {
+        return payment;
+    }
+
+    public void setPayment(double payment) {
+        this.payment = payment;
     }
 
     public LocalDateTime getCreated() {

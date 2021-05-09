@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
 </head>
 <body>
+<%@include file="/WEB-INF/views/header.jsp" %>
 <div class="patient-add-form-div">
     <form:form method="POST" action="/patient/add?${_csrf.parameterName}=${_csrf.token}" modelAttribute="newpatient" enctype="multipart/form-data">
         <div class="row">

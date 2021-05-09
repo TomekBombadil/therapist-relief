@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/patient", produces = "text/html;charset=UTF-8")
@@ -32,7 +33,7 @@ public class PatientController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String showAll(Model model) {
-        List<Patient> patients = patientService.returnAll();
+        Set<Patient> patients = patientService.returnAllWithPayments();
         model.addAttribute("allpatients", patients);
         return "patient/all";
     }

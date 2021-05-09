@@ -8,6 +8,8 @@
 </head>
 <body>
 <a href="<c:url value="/session/add"/>">Add</a>
+
+<%@include file="/WEB-INF/views/header.jsp" %>
 <h2>Session:</h2>
 <div class="patient-add-form-div">
     <div class="row">
