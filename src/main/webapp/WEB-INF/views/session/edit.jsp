@@ -17,7 +17,7 @@
                     </tr>
                     <tr>
                         <td><form:label path="date">Date:</form:label></td>
-                        <td><form:input type="date" path="date" /><form:errors path="date" cssClass="validation-error-text"/></td>
+                        <td><form:input type="date" path="date" value="${sessiontoedit.date}"/><form:errors path="date" cssClass="validation-error-text"/></td>
                     </tr>
                     <tr>
                         <td><form:label path="time">Time:</form:label></td>
