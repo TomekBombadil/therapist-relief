@@ -22,6 +22,7 @@
                 <td>Payment</td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
             <c:forEach items="${upcoming}" var="session">
                 <tr>
@@ -30,6 +31,7 @@
                     <td>${session.patientsNames}</td>
                     <td>${session.user.username}</td>
                     <td>${session.paymentDiff}</td>
+                    <td><a href="<c:url value="/session/invoice?id=${session.id}"/>">Invoice</a></td>
                     <td><a href="<c:url value="/session/edit?id=${session.id}"/>">Edit</a></td>
                     <td><a href="<c:url value="/session/delete?id=${session.id}"/>">Delete</a></td>
                 </tr>
