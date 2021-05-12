@@ -48,10 +48,10 @@ public class UserService {
     }
 
     public void save(User user) {
-        if (emailExists(user.getEmail())) {
+        if (user.getId()==null && emailExists(user.getEmail())) {
             throw new UserAlreadyExistsException("There is an account with that email address " + user.getEmail());
         }
-        if (usernameExists(user.getUsername())) {
+        if (user.getId()==null && usernameExists(user.getUsername())) {
             throw new UserAlreadyExistsException("There is an account with that username " + user.getUsername());
         }
         if (user.getId() == null || !user.getPassword().equals(read(user.getId()).get().getPassword())) {
