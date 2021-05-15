@@ -2,6 +2,7 @@ package pl.waw.psychologmaja.therapistrelief.entity;
 
 import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.waw.psychologmaja.therapistrelief.validation.PasswordsMatch;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@PasswordsMatch(message = "{user.passwords.mismatch}")
 public class User implements UserDetails {
 
     @Id
@@ -30,7 +32,8 @@ public class User implements UserDetails {
     @Size(min=4, message = "{user.password.size.min}")
     @Column(length = 100)
     private String password;
-    @Transient
+    @NotNull
+    @Column(name ="password_confirmed", length = 100)
     private String passwordConfirmed;
     @ManyToMany
     @JoinTable(name = "users_authorities"

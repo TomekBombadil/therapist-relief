@@ -56,8 +56,10 @@ public class UserService {
         }
         if (user.getId() == null || !user.getPassword().equals(read(user.getId()).get().getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPasswordConfirmed(user.getPassword());
         } else {
             user.setPassword(read(user.getId()).get().getPassword());
+            user.setPasswordConfirmed(user.getPassword());
         }
         userRepository.save(user);
     }

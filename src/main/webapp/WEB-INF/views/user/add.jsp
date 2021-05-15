@@ -15,6 +15,7 @@
                 <table class="patient-add-table">
                     <tr>
                         <td><h2>New user</h2></td>
+                        <form:errors path="*" cssClass="validation-error-text" ></form:errors>
                     </tr>
                     <tr>
                         <td><form:label path="username">User name:</form:label></td>
@@ -28,10 +29,10 @@
                         <td><form:label path="password">Password:</form:label></td>
                         <td><form:password path="password"/><form:errors path="password" cssClass="validation-error-text"/></td>
                     </tr>
-<%--                    <tr>--%>
-<%--                        <td><form:label path="passwordConfirmed">Confirm password:</form:label></td>--%>
-<%--                        <td><form:password path="passwordConfirmed"/><form:errors path="passwordConfirmed" cssClass="validation-error-text"/></td>--%>
-<%--                    </tr>--%>
+                    <tr>
+                        <td><form:label path="passwordConfirmed">Confirm password:</form:label></td>
+                        <td><form:password path="passwordConfirmed"/>
+                    </tr>
                     <tr>
                         <td><form:label path="enabled">Enabled:</form:label></td>
                         <td><form:checkbox path="enabled"/><form:errors path="enabled" cssClass="validation-error-text"/></td>
